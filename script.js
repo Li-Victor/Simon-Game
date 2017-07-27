@@ -3,7 +3,8 @@
 var colors = ['blue', 'red', 'green', 'yellow'];
 var gameColors = [];
 var userColors = [];
-var strict = false;
+var strictMode = true;
+var lose = false; //lose variable is needed for non-strict mode
 var score = 0;
 var userTimeout;
 
@@ -14,64 +15,130 @@ function start(flag) {
 
     if(!flag) {
         gameChooseColor();
+        userColors = [];
         return;
     }
 
     console.log('user chooses color');
     userChooseColor();
+
 }
 
 function userChooseColor() {
-    //clear user colors
-    userColors = [];
 
-    userTurn();
+    if(strictMode) {
+        //clear user colors
+        userColors = [];
+
+        userTurn();
+
+    } else {
+
+        userTurn();
+    }
+
 }
 
 function userTurn() {
 
-    userTimeout = setTimeout(function () {
+    if(strictMode) {
+        userTimeout = setTimeout(function () {
 
-        //when timeout is finished the game is over
-        console.log('You lose');
-        reset();
+            //when timeout is finished the game is over
+            console.log('You lose');
+            reset();
 
-    }, gameColors.length * 3000);
+        }, gameColors.length * 3000);
+    } else {
+
+        userTimeout = setTimeout(function () {
+
+            //when timeout is finished the game is over
+            lose = true;
+            userColors = [];
+            start(false);
+
+        }, gameColors.length * 3000);
+
+
+    }
+
 
 }
 
 function stopUserTimeout() {
 
-    if(userTimeout) {
-        clearInterval(userTimeout);
-        console.log('You lose');
-        reset();
+    if(strictMode) {
+
+        if(userTimeout) {
+            clearInterval(userTimeout);
+            console.log('You lose');
+            reset();
+        }
+
+    } else {
+
+        if(userTimeout) {
+            clearInterval(userTimeout);
+            lose = true;
+            userColors = [];
+            start(false);
+
+        }
+
     }
+
+
 
 }
 
 function continueGame() {
 
-    if(userTimeout) {
-        clearInterval(userTimeout);
-        score++;
-        console.log(score);
-        start(false);
+    if(strictMode) {
+
+        if(userTimeout) {
+            clearInterval(userTimeout);
+            score++;
+            console.log(score);
+            start(false);
+        }
+
+    } else {
+
+        if(userTimeout) {
+            clearInterval(userTimeout);
+            score++;
+            console.log(score);
+            lose = false;
+            start(false);
+        }
+
+
     }
 
 }
 
 function reset() {
-    gameColors = [];
-    userColors = [];
-    score = 0;
+
+     gameColors = [];
+     userColors = [];
+     score = 0;
+     lose = false;
+
 }
 
 function gameChooseColor() {
 
-    gameChooseRandomColor();
-    //then game iterates over gameColors
-    printColor(false);
+    if (strictMode) {
+        gameChooseRandomColor();
+        //then game iterates over gameColors
+        printColor(false);
+    } else {
+
+        if(!lose) gameChooseRandomColor();
+        //then game iterates over gameColors
+        printColor(false);
+    }
 
 }
 
@@ -103,9 +170,11 @@ function printColor(flag) {
 
 
 function gameChooseRandomColor() {
+
     var random = Math.floor(Math.random() * (colors.length));
     gameColors.push(colors[random]);
     return colors[random];
+
 }
 
 //compares colors one by one
@@ -130,4 +199,16 @@ function compareColors(userCount, color) {
 
 function victory() {
     return score == 20;
+}
+
+function stopGame() {
+    if(userTimeout) {
+        reset();
+        clearInterval(userTimeout);
+    }
+}
+
+function toggleStrict() {
+    strictMode = !strictMode;
+    lose = false;
 }

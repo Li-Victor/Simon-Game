@@ -10,18 +10,27 @@ var lose = false; //lose variable is needed for non-strict mode
 var score = 0;
 var userTimeout;
 
+var message = document.querySelector('.message');
+var panelScore = document.querySelector('.panel__score');
+
+var greenTile = document.querySelector('.green_tile');
+var redTile = document.querySelector('.red_tile');
+var blueTile = document.querySelector('.blue_tile');
+var yellowTile = document.querySelector('.yellow_tile');
+
 //run gameChooseColor first, then userChooseColor
 //flag is false: the game chooses the color and print the color
 //flag is true: users turn to pick a color
 function start(flag) {
 
     if(!flag) {
+        message.innerText = 'Picking Colors';
         gameChooseColor();
         userColors = [];
         return;
     }
 
-    console.log('user chooses color');
+    message.innerText = 'Pick Sequence of Tiles: Only ' + (20 - (gameColors.length - 1)) + ' left';
     userChooseColor();
 
 }
@@ -32,7 +41,7 @@ function userChooseColor() {
 
         if(strictMode) {
             //when timeout is finished the game is over
-            console.log('You lose');
+            message.innerText = 'You Lose!';
             reset();
         } else {
             //when timeout is finished, restart the game not in strict mode
@@ -52,7 +61,7 @@ function stopUserTimeout() {
         clearInterval(userTimeout);
 
         if(strictMode) {
-            console.log('You lose');
+            message.innerText = 'You Lose!';
             reset();
         } else {
             lose = true;
@@ -69,7 +78,7 @@ function continueGame() {
     if(userTimeout) {
         clearInterval(userTimeout);
         score++;
-        console.log(score);
+        panelScore.innerText = score;
         lose = false;
         start(false);
     }
@@ -101,6 +110,7 @@ function printColor(flag) {
             (function() {
                 var j = i;
                 setTimeout(function timer(){
+                    lightUpTile(gameColors[j]);
                     console.log(gameColors[j]);
 
                     //wait another second break out and call start(true)
@@ -117,6 +127,24 @@ function printColor(flag) {
     }
     start(true);
 
+}
+
+function lightUpTile(color) {
+    switch (color) {
+        case 'red':
+            redTile.style.backgroundColor = 'red';
+            break;
+        case 'blue':
+            blueTile.style.backgroundColor = 'blue';
+            break;
+        case 'yellow':
+            yellowTile.style.backgroundColor = 'yellow';
+            break;
+        case 'green':
+            greenile.style.backgroundColor = 'green';
+            break;
+        default:
+    }
 }
 
 

@@ -3,8 +3,10 @@
 var colors = ['blue', 'red', 'green', 'yellow'];
 var gameColors = [];
 var userColors = [];
-var strictMode = true;
+var strictMode = false;
 var lose = false; //lose variable is needed for non-strict mode
+//lose variable always false in strictMode
+
 var score = 0;
 var userTimeout;
 
@@ -26,94 +28,50 @@ function start(flag) {
 
 function userChooseColor() {
 
-    if(strictMode) {
-        //clear user colors
-        userColors = [];
+    userTimeout = setTimeout(function () {
 
-        userTurn();
-
-    } else {
-
-        userTurn();
-    }
-
-}
-
-function userTurn() {
-
-    if(strictMode) {
-        userTimeout = setTimeout(function () {
-
+        if(strictMode) {
             //when timeout is finished the game is over
             console.log('You lose');
             reset();
-
-        }, gameColors.length * 3000);
-    } else {
-
-        userTimeout = setTimeout(function () {
-
-            //when timeout is finished the game is over
+        } else {
+            //when timeout is finished, restart the game not in strict mode
             lose = true;
             userColors = [];
             start(false);
+        }
 
-        }, gameColors.length * 3000);
-
-
-    }
-
+    }, gameColors.length * 3000);
 
 }
 
 function stopUserTimeout() {
 
-    if(strictMode) {
+    if(userTimeout) {
 
-        if(userTimeout) {
-            clearInterval(userTimeout);
+        clearInterval(userTimeout);
+
+        if(strictMode) {
             console.log('You lose');
             reset();
-        }
-
-    } else {
-
-        if(userTimeout) {
-            clearInterval(userTimeout);
+        } else {
             lose = true;
             userColors = [];
             start(false);
-
         }
 
     }
-
-
 
 }
 
 function continueGame() {
 
-    if(strictMode) {
-
-        if(userTimeout) {
-            clearInterval(userTimeout);
-            score++;
-            console.log(score);
-            start(false);
-        }
-
-    } else {
-
-        if(userTimeout) {
-            clearInterval(userTimeout);
-            score++;
-            console.log(score);
-            lose = false;
-            start(false);
-        }
-
-
+    if(userTimeout) {
+        clearInterval(userTimeout);
+        score++;
+        console.log(score);
+        lose = false;
+        start(false);
     }
 
 }
@@ -129,16 +87,9 @@ function reset() {
 
 function gameChooseColor() {
 
-    if (strictMode) {
-        gameChooseRandomColor();
-        //then game iterates over gameColors
-        printColor(false);
-    } else {
-
-        if(!lose) gameChooseRandomColor();
-        //then game iterates over gameColors
-        printColor(false);
-    }
+    if(!lose) gameChooseRandomColor();
+    //then game iterates over gameColors
+    printColor(false);
 
 }
 

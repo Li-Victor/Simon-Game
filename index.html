@@ -3,9 +3,48 @@
     <head>
         <meta charset="utf-8">
         <title>Simon Game</title>
+        <link rel="stylesheet" href="./normalize.css">
+        <link rel="stylesheet" href="./style.css">
     </head>
     <body>
 
-        <script src="./script.js"></script>
+        <div class="container">
+            <div class="panel">
+                <div class="panel__score">0</div>
+                <div>Reach 20 to Win!</div>
+
+                <div>
+                    <input type="radio" id="easy" value="easy" name="easy">
+                    <label for="easy">Easy</label>
+
+                    <input type="radio" id="strict" value="strict" name="strict">
+                    <label for="strict">Strict</label>
+                </div>
+
+                <div>
+                    <button class="panel__button play_button" disabled>Play</button>
+                    <button class="panel__button reset_button" disabled>Reset</button>
+                </div>
+
+            </div>
+
+            <div class="game">
+                <div class="row">
+                    <div class="tile green_tile" data-color="green"></div>
+                    <div class="tile red_tile" data-color="red"></div>
+                </div>
+
+                <div class="row">
+                    <div class="tile yellow_tile" data-color="yellow"></div>
+                    <div class="tile blue_tile" data-color="blue"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="message"></div>
+
+        <script src="./model.js"></script>
+        <script src="./controller.js"></script>
+        <script src="./view.js"></script>
     </body>
 </html>

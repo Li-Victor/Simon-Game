@@ -1,0 +1,7 @@
+function controlPlayButton() {
+
+}
+
+function controlResetButton() {
+    
+}

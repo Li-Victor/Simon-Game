@@ -1,0 +1,29 @@
+html {
+    background-color: lightgrey;
+}
+
+.tile {
+    width: 250px;
+    height: 250px;
+    display: table-cell;
+}
+
+.green_tile {
+    background-color: darkgreen;
+}
+
+.blue_tile {
+    background-color: darkblue;
+}
+
+.red_tile {
+    background-color: darkred;
+}
+
+.yellow_tile {
+    background-color: lightgoldenrodyellow;
+}
+
+.game {
+    border: 1px solid black;
+}

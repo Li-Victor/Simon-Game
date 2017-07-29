@@ -7,6 +7,8 @@ var strictMode = false;
 var lose = false; //lose variable is needed for non-strict mode
 //lose variable always false in strictMode
 
+var over = false; //to stop lighting up the colors when reset button is pressed
+
 var score = 0;
 var userTimeout; //gets set by userChooseColor
 
@@ -64,7 +66,7 @@ function userChooseColor() {
         }
         resetTileColor();
 
-    }, gameColors.length * 3000);
+    }, gameColors.length * 1000);
 
 }
 
@@ -146,24 +148,25 @@ function printColor(flag) {
                 (function() {
                     var j = i;
 
-                    setTimeout(function timer(){
+                    setTimeout(function timer() {
 
-                        lightUpTile(gameColors[j]);
+                        if(!over) {
 
-                        console.log(gameColors[j]);
+                            lightUpTile(gameColors[j]);
 
-                        setTimeout(function () {
-                            resetTileColor();
+                            setTimeout(function () {
+                                resetTileColor();
 
-                            //wait another second break out and call start(true)
-                            if(++j === gameColors.length) {
-                                setTimeout(function () {
-                                    printColor(true)
-                                }, 500);
-                            }
+                                //wait another second break out and call start(true)
+                                if(++j === gameColors.length) {
+                                    setTimeout(function () {
+                                        printColor(true)
+                                    }, 500);
+                                }
 
-                        }, 500) //seconds of sound
+                            }, 500) //seconds of sound
 
+                        }
 
                     }, offset); //second of sound + seconds to pause for displaying next tile
                     offset += 1500;

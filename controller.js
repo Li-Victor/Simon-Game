@@ -1,14 +1,17 @@
 'use strict';
 
 function controlPlayButton() {
+    over = false;
     start(false);
 }
 
 function controlResetButton() {
+    over = true;
     reset();
     stopGame();
     var message = document.querySelector('.message');
     message.innerText = '';
+    turnOffHover();
 }
 
 function controlStrictMode(value) {

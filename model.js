@@ -25,6 +25,7 @@ function start(flag) {
 
     if(!flag) {
         message.innerText = 'Picking Colors';
+        userTimeout = undefined;
         gameChooseColor();
         userColors = [];
         return;
@@ -42,6 +43,8 @@ function userChooseColor() {
         if(strictMode) {
             //when timeout is finished the game is over
             message.innerText = 'You Lose!';
+            clearTimeout(userTimeout);
+            userTimeout = undefined;
             reset();
         } else {
             //when timeout is finished, restart the game not in strict mode
@@ -58,7 +61,8 @@ function stopUserTimeout() {
 
     if(userTimeout) {
 
-        clearInterval(userTimeout);
+        clearTimeout(userTimeout);
+        userTimeout = undefined;
 
         if(strictMode) {
             message.innerText = 'You Lose!';
@@ -67,6 +71,7 @@ function stopUserTimeout() {
             lose = true;
             userColors = [];
             start(false);
+            resetTileColor();
         }
 
     }
@@ -76,7 +81,9 @@ function stopUserTimeout() {
 function continueGame() {
 
     if(userTimeout) {
-        clearInterval(userTimeout);
+        clearTimeout(userTimeout);
+        userTimeout = undefined;
+        resetTileColor();
         score++;
         panelScore.innerText = score;
         lose = false;
@@ -91,6 +98,7 @@ function reset() {
      userColors = [];
      score = 0;
      lose = false;
+     resetTileColor();
 
 }
 
@@ -107,37 +115,42 @@ function printColor(flag) {
 
     if(!flag) {
 
-        var offset = 0;
-        for (var i = 0; i < gameColors.length; i++) {
-            (function() {
-                var j = i;
+        setTimeout(function () {
+            resetTileColor();
 
-                setTimeout(function timer(){
+            var offset = 0;
+            for (var i = 0; i < gameColors.length; i++) {
+                (function() {
+                    var j = i;
 
-                    lightUpTile(gameColors[j]);
+                    setTimeout(function timer(){
 
-                    console.log(gameColors[j]);
+                        lightUpTile(gameColors[j]);
 
-                    setTimeout(function () {
-                        redTile.style.backgroundColor = 'darkred';
-                        greenTile.style.backgroundColor = 'darkgreen';
-                        yellowTile.style.backgroundColor = 'lightgoldenrodyellow';
-                        blueTile.style.backgroundColor = 'darkblue';
+                        console.log(gameColors[j]);
 
-                        //wait another second break out and call start(true)
-                        if(++j === gameColors.length) {
-                            setTimeout(function () {
-                                printColor(true)
-                            }, 500);
-                        }
+                        setTimeout(function () {
+                            resetTileColor();
 
-                    }, 2000) //seconds of sound
+                            //wait another second break out and call start(true)
+                            if(++j === gameColors.length) {
+                                setTimeout(function () {
+                                    printColor(true)
+                                }, 500);
+                            }
+
+                        }, 2000) //seconds of sound
 
 
-                }, offset); //second of sound + seconds to pause for displaying next tile
-                offset += 3000;
-            }());
-        }
+                    }, offset); //second of sound + seconds to pause for displaying next tile
+                    offset += 3000;
+                }());
+            }
+
+
+        }, 1500);
+
+
         return;
     }
     start(true);
@@ -160,6 +173,13 @@ function lightUpTile(color) {
             break;
         default:
     }
+}
+
+function resetTileColor() {
+    redTile.style.backgroundColor = 'darkred';
+    greenTile.style.backgroundColor = 'darkgreen';
+    yellowTile.style.backgroundColor = 'lightgoldenrodyellow';
+    blueTile.style.backgroundColor = 'darkblue';
 }
 
 
@@ -198,7 +218,8 @@ function victory() {
 function stopGame() {
     if(userTimeout) {
         reset();
-        clearInterval(userTimeout);
+        clearTimeout(userTimeout);
+        userTimeout = undefined;
     }
 }
 

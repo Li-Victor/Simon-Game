@@ -3,6 +3,7 @@
 var radioButtons = document.querySelectorAll('input');
 var playButton = document.querySelector('.play_button');
 var resetButton = document.querySelector('.reset_button');
+var tiles = document.querySelectorAll('.tile');
 
 radioButtons.forEach(function (button) {
     button.addEventListener('click', function () {
@@ -29,3 +30,13 @@ resetButton.addEventListener('click', function () {
     controlResetButton()
 
 });
+
+tiles.forEach(function (tile) {
+    tile.addEventListener('mousedown', function () {
+        controlTile(this.dataset.color);
+    });
+
+    tile.addEventListener('mouseup', function () {
+        controlResetTile();
+    });
+})

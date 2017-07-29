@@ -106,21 +106,36 @@ function gameChooseColor() {
 function printColor(flag) {
 
     if(!flag) {
+
+        var offset = 0;
         for (var i = 0; i < gameColors.length; i++) {
             (function() {
                 var j = i;
+
                 setTimeout(function timer(){
+
                     lightUpTile(gameColors[j]);
+
                     console.log(gameColors[j]);
 
-                    //wait another second break out and call start(true)
-                    if(++j === gameColors.length) {
-                        setTimeout(function () {
-                            printColor(true)
-                        }, 1000);
-                    }
+                    setTimeout(function () {
+                        redTile.style.backgroundColor = 'darkred';
+                        greenTile.style.backgroundColor = 'darkgreen';
+                        yellowTile.style.backgroundColor = 'lightgoldenrodyellow';
+                        blueTile.style.backgroundColor = 'darkblue';
 
-                }, j * 4000);
+                        //wait another second break out and call start(true)
+                        if(++j === gameColors.length) {
+                            setTimeout(function () {
+                                printColor(true)
+                            }, 500);
+                        }
+
+                    }, 2000) //seconds of sound
+
+
+                }, offset); //second of sound + seconds to pause for displaying next tile
+                offset += 3000;
             }());
         }
         return;
@@ -141,7 +156,7 @@ function lightUpTile(color) {
             yellowTile.style.backgroundColor = 'yellow';
             break;
         case 'green':
-            greenile.style.backgroundColor = 'green';
+            greenTile.style.backgroundColor = 'green';
             break;
         default:
     }

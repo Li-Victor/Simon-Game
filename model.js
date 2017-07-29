@@ -18,6 +18,11 @@ var redTile = document.querySelector('.red_tile');
 var blueTile = document.querySelector('.blue_tile');
 var yellowTile = document.querySelector('.yellow_tile');
 
+var greenAudio = document.querySelector('audio[data-key="green"]');
+var redAudio = document.querySelector('audio[data-key="red"]');
+var blueAudio = document.querySelector('audio[data-key="blue"]');
+var yellowAudio = document.querySelector('audio[data-key="yellow"]');
+
 //run gameChooseColor first, then userChooseColor
 //flag is false: the game chooses the color and print the color
 //flag is true: users turn to pick a color
@@ -139,11 +144,11 @@ function printColor(flag) {
                                 }, 500);
                             }
 
-                        }, 2000) //seconds of sound
+                        }, 500) //seconds of sound
 
 
                     }, offset); //second of sound + seconds to pause for displaying next tile
-                    offset += 3000;
+                    offset += 1500;
                 }());
             }
 
@@ -161,15 +166,23 @@ function lightUpTile(color) {
     switch (color) {
         case 'red':
             redTile.style.backgroundColor = 'red';
+            redAudio.currentTime = 0;
+            redAudio.play();
             break;
         case 'blue':
             blueTile.style.backgroundColor = 'blue';
+            blueAudio.currentTime = 0;
+            blueAudio.play();
             break;
         case 'yellow':
             yellowTile.style.backgroundColor = 'yellow';
+            yellowAudio.currentTime = 0;
+            yellowAudio.play();
             break;
         case 'green':
             greenTile.style.backgroundColor = 'green';
+            greenAudio.currentTime = 0;
+            greenAudio.play();
             break;
         default:
     }

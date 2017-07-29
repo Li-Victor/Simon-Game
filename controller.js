@@ -17,7 +17,6 @@ function controlStrictMode(value) {
 
 function controlTile(color) {
     if(userTimeout) {
-        console.log('click');
         lightUpTile(color);
         userPickColor(color);
     }

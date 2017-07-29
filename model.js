@@ -8,7 +8,7 @@ var lose = false; //lose variable is needed for non-strict mode
 //lose variable always false in strictMode
 
 var score = 0;
-var userTimeout;
+var userTimeout; //gets set by userChooseColor
 
 var message = document.querySelector('.message');
 var panelScore = document.querySelector('.panel__score');
@@ -50,13 +50,13 @@ function userChooseColor() {
             message.innerText = 'You Lose!';
             clearTimeout(userTimeout);
             userTimeout = undefined;
-            reset();
         } else {
             //when timeout is finished, restart the game not in strict mode
             lose = true;
             userColors = [];
             start(false);
         }
+        resetTileColor();
 
     }, gameColors.length * 3000);
 
@@ -71,13 +71,12 @@ function stopUserTimeout() {
 
         if(strictMode) {
             message.innerText = 'You Lose!';
-            reset();
         } else {
             lose = true;
             userColors = [];
             start(false);
-            resetTileColor();
         }
+        resetTileColor();
 
     }
 
@@ -92,7 +91,11 @@ function continueGame() {
         score++;
         panelScore.innerText = score;
         lose = false;
-        start(false);
+        if(victory()) {
+            message.innerText = 'You Win!';
+            resetTileColor();
+        }
+        else start(false);
     }
 
 }
@@ -103,6 +106,7 @@ function reset() {
      userColors = [];
      score = 0;
      lose = false;
+     panelScore.innerText = score;
      resetTileColor();
 
 }
@@ -153,7 +157,7 @@ function printColor(flag) {
             }
 
 
-        }, 1500);
+        }, 1000);
 
 
         return;
@@ -225,12 +229,11 @@ function compareColors(userCount, color) {
 }
 
 function victory() {
-    return score == 20;
+    return score === 5;
 }
 
 function stopGame() {
     if(userTimeout) {
-        reset();
         clearTimeout(userTimeout);
         userTimeout = undefined;
     }

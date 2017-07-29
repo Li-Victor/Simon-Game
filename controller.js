@@ -5,6 +5,7 @@ function controlPlayButton() {
 }
 
 function controlResetButton() {
+    reset();
     stopGame();
     var message = document.querySelector('.message');
     message.innerText = '';

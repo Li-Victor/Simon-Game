@@ -30,7 +30,7 @@ function start(flag) {
 
     if(!flag) {
         message.innerText = 'Picking Colors';
-        userTimeout = undefined;
+        turnOffHover();
         gameChooseColor();
         userColors = [];
         return;
@@ -43,6 +43,11 @@ function start(flag) {
 
 function userChooseColor() {
 
+    var tiles = document.querySelectorAll('.tile');
+    tiles.forEach(function (tile) {
+        tile.classList.add('hover');
+    });
+
     userTimeout = setTimeout(function () {
 
         if(strictMode) {
@@ -50,6 +55,7 @@ function userChooseColor() {
             message.innerText = 'You Lose!';
             clearTimeout(userTimeout);
             userTimeout = undefined;
+            turnOffHover();
         } else {
             //when timeout is finished, restart the game not in strict mode
             lose = true;
@@ -62,21 +68,28 @@ function userChooseColor() {
 
 }
 
+function turnOffHover() {
+    var tiles = document.querySelectorAll('.tile');
+    tiles.forEach(function (tile) {
+        tile.classList.remove('hover');
+    });
+}
+
 function stopUserTimeout() {
 
     if(userTimeout) {
-
+        resetTileColor();
         clearTimeout(userTimeout);
         userTimeout = undefined;
 
         if(strictMode) {
             message.innerText = 'You Lose!';
+            turnOffHover();
         } else {
             lose = true;
             userColors = [];
             start(false);
         }
-        resetTileColor();
 
     }
 
@@ -85,15 +98,16 @@ function stopUserTimeout() {
 function continueGame() {
 
     if(userTimeout) {
+        resetTileColor();
         clearTimeout(userTimeout);
         userTimeout = undefined;
-        resetTileColor();
         score++;
         panelScore.innerText = score;
         lose = false;
         if(victory()) {
             message.innerText = 'You Win!';
             resetTileColor();
+            turnOffHover();
         }
         else start(false);
     }

@@ -39,4 +39,4 @@ tiles.forEach(function (tile) {
     tile.addEventListener('mouseup', function () {
         controlResetTile();
     });
-})
+});

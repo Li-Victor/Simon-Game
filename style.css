@@ -1,33 +1,60 @@
 html {
-    background-color: lightgrey;
+    background-color: #90A4AE;
+    font-size: 3vh;
 }
 
 .tile {
-    width: 250px;
-    height: 250px;
+    width: 30vh;
+    height: 30vh;
     display: table-cell;
 }
 
 .green_tile {
-    background-color: darkgreen;
+    background-color: #66BB6A;
+    border: 5px solid black;
+    overflow: hidden;
 }
 
 .blue_tile {
-    background-color: darkblue;
+    background-color: #42A5F5;
+    border: 5px solid black;
+    overflow: hidden;
 }
 
 .red_tile {
-    background-color: darkred;
+    background-color: #EF5350;
+    border: 5px solid black;
+    overflow: hidden;
 }
 
 .yellow_tile {
-    background-color: lightgoldenrodyellow;
-}
-
-.game {
-    border: 1px solid black;
+    background-color: #FFEE58;
+    border: 5px solid black;
+    overflow: hidden;
 }
 
 .hover {
     cursor: pointer;
+}
+
+.game {
+    padding-left: 30vw;
+}
+
+.panel {
+    padding: 3vh 5vw 3vh 5vw;
+}
+
+.message, .panel__score  {
+    font-size: 6vh;
+    font-weight: 700;
+}
+
+.message {
+    padding-left: 5vw;
+}
+
+input[type="radio"] {
+    width: 19px;
+    height: 19px;
 }

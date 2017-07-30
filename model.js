@@ -38,7 +38,7 @@ function start(flag) {
         return;
     }
 
-    message.innerText = 'Pick Sequence of Tiles: Only ' + (20 - (gameColors.length - 1)) + ' left';
+    message.innerText = 'Sequence of Tiles: Only ' + (20 - (gameColors.length - 1)) + ' left';
     userChooseColor();
 
 }
@@ -104,7 +104,7 @@ function continueGame() {
         clearTimeout(userTimeout);
         userTimeout = undefined;
         score++;
-        panelScore.innerText = score;
+        panelScore.innerText = 'Score: ' + score;
         lose = false;
         if(victory()) {
             message.innerText = 'You Win!';
@@ -122,7 +122,7 @@ function reset() {
      userColors = [];
      score = 0;
      lose = false;
-     panelScore.innerText = score;
+     panelScore.innerText = 'Score: ' + score;
      resetTileColor();
 
 }
@@ -186,22 +186,22 @@ function printColor(flag) {
 function lightUpTile(color) {
     switch (color) {
         case 'red':
-            redTile.style.backgroundColor = 'red';
+            redTile.style.backgroundColor = '#B71C1C';
             redAudio.currentTime = 0;
             redAudio.play();
             break;
         case 'blue':
-            blueTile.style.backgroundColor = 'blue';
+            blueTile.style.backgroundColor = '#0D47A1';
             blueAudio.currentTime = 0;
             blueAudio.play();
             break;
         case 'yellow':
-            yellowTile.style.backgroundColor = 'yellow';
+            yellowTile.style.backgroundColor = '#FFFF00';
             yellowAudio.currentTime = 0;
             yellowAudio.play();
             break;
         case 'green':
-            greenTile.style.backgroundColor = 'green';
+            greenTile.style.backgroundColor = '#1B5E20';
             greenAudio.currentTime = 0;
             greenAudio.play();
             break;
@@ -210,10 +210,10 @@ function lightUpTile(color) {
 }
 
 function resetTileColor() {
-    redTile.style.backgroundColor = 'darkred';
-    greenTile.style.backgroundColor = 'darkgreen';
-    yellowTile.style.backgroundColor = 'lightgoldenrodyellow';
-    blueTile.style.backgroundColor = 'darkblue';
+    redTile.style.backgroundColor = '#EF5350';
+    blueTile.style.backgroundColor = '#42A5F5';
+    yellowTile.style.backgroundColor = '#FFEE58';
+    greenTile.style.backgroundColor = '#66BB6A';
 }
 
 

@@ -66,7 +66,7 @@ function userChooseColor() {
         }
         resetTileColor();
 
-    }, gameColors.length * 1000);
+    }, gameColors.length * 2000);
 
 }
 
@@ -169,7 +169,7 @@ function printColor(flag) {
                         }
 
                     }, offset); //second of sound + seconds to pause for displaying next tile
-                    offset += 1500;
+                    offset += 1000;
                 }());
             }
 
@@ -237,7 +237,11 @@ function userPickColor(color) {
         return;
     }
 
-    if(userColors.length === gameColors.length) continueGame();
+    if(userColors.length === gameColors.length) {
+        setTimeout(function () {
+            continueGame();
+        }, 250); //250 ms to register last color of user. 250ms of lighting last tile
+    }
 
 }
 
@@ -246,7 +250,7 @@ function compareColors(userCount, color) {
 }
 
 function victory() {
-    return score === 5;
+    return score === 20;
 }
 
 function stopGame() {

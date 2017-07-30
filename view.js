@@ -27,7 +27,7 @@ resetButton.addEventListener('click', function () {
         button.checked = false;
     });
 
-    controlResetButton()
+    controlResetButton();
 
 });
 

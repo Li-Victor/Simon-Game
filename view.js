@@ -5,9 +5,15 @@ var playButton = document.querySelector('.play_button');
 var resetButton = document.querySelector('.reset_button');
 var tiles = document.querySelectorAll('.tile');
 
+var strictRadioButton = document.querySelector('input#strict');
+var easyRadioButton = document.querySelector('input#easy');
+
 radioButtons.forEach(function (button) {
     button.addEventListener('click', function () {
-        playButton.disabled = false;
+        if(playButton.disabled && resetButton.disabled) {
+            playButton.disabled = false;
+        }
+
         controlStrictMode(this.value);
     });
 });
@@ -15,6 +21,12 @@ radioButtons.forEach(function (button) {
 playButton.addEventListener('click', function () {
     resetButton.disabled = false;
     playButton.disabled = true;
+
+    if(strictRadioButton.checked) {
+        easyRadioButton.disabled = true;
+    } else {
+        strictRadioButton.disabled = true;
+    }
 
     controlPlayButton();
 });
@@ -26,6 +38,9 @@ resetButton.addEventListener('click', function () {
     radioButtons.forEach(function (button) {
         button.checked = false;
     });
+
+    strictRadioButton.disabled = false;
+    easyRadioButton.disabled = false;
 
     controlResetButton();
 

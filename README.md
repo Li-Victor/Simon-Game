@@ -1,5 +1,7 @@
 # Simon-Game
 
+[**Check out Simon Game**](https://li-victor.github.io/Simon-Game/)
+
 Users are presented with a random series of button presses.
 
 Each time a user inputs a series of button presses correctly, the user sees the same series of button presses but with an additional step.

@@ -1,6 +1,6 @@
 # Simon-Game
 
-[**Check out Simon Game**](https://li-victor.github.io/Simon-Game/)
+[**Check out Simon Game**](https://simon-game-vl.netlify.com/)
 
 Users are presented with a random series of button presses.
 
